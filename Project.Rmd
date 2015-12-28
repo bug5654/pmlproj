@@ -23,7 +23,7 @@ Thus we use
 uselesscol <- colSums(is.na(training))
 newTraining <- training[,!(uselesscol > 100)]   
 uselessrow <- rowSums(is.na(training))
-newTraining <- training[!(uselessrow > 0)]   #strict
+newTraining <- training[!(uselessrow > 0),]   #strict
 ```
 
 *Training:*

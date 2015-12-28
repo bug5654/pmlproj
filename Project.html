@@ -78,7 +78,7 @@ testing &lt;-read.csv(&quot;pml-testing.csv&quot;,na.strings=c(&quot;NA&quot;,&q
 <pre class="r"><code>uselesscol &lt;- colSums(is.na(training))
 newTraining &lt;- training[,!(uselesscol &gt; 100)]   
 uselessrow &lt;- rowSums(is.na(training))
-newTraining &lt;- training[!(uselessrow &gt; 0)]   #strict</code></pre>
+newTraining &lt;- training[!(uselessrow &gt; 0),]   #strict</code></pre>
 <p><em>Training:</em> We use a General Linear Model to predict the, ‘classe’ value</p>
 <pre class="r"><code>internaltrainingpart &lt;- createDataPartition(y = newTraining$classe, p = 0.75, list = FALSE)
 internaltrainingdata &lt;- newTraining[partition, ]
