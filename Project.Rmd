@@ -31,4 +31,6 @@ newTraining <- training[!(uselessrow > 0)]   #strict
 internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.6, list = FALSE)
 internaltrainingdata <- newTraining[partition, ]
 internaltestdata <- newTraining[-partition, ]
+
+model <- train(classe ~ ., data = internaltrainingpart, method = "glm")
 ```

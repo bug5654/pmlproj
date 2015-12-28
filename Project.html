@@ -82,7 +82,9 @@ newTraining &lt;- training[!(uselessrow &gt; 0)]   #strict</code></pre>
 <p><em>Training:</em></p>
 <pre class="r"><code>internaltrainingpart &lt;- createDataPartition(y = newTraining$classe, p = 0.6, list = FALSE)
 internaltrainingdata &lt;- newTraining[partition, ]
-internaltestdata &lt;- newTraining[-partition, ]</code></pre>
+internaltestdata &lt;- newTraining[-partition, ]
+
+model &lt;- train(classe ~ ., data = internaltrainingpart, method = &quot;glm&quot;)</code></pre>
 
 
 </div>
