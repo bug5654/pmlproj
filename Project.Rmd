@@ -1,0 +1,8 @@
+---
+title: "Machine Learning Project"
+author: "Nathan E. Wendling"
+date: "December 27, 2015"
+output: html_document
+---
+
+Before the file could hit R, I went in with a text editor and manually removed all the doublequotes from the file as the file was not going through read.table properly.  Find-replace'd all \"s with nothing (not even a space) given that there were over 300,000 double quotes, I suppose it isn't all that unlikely for a data entry error to crop up.
