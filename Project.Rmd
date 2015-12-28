@@ -27,10 +27,31 @@ newTraining <- training[!(uselessrow > 0)]   #strict
 ```
 
 *Training:*
+We use a General Linear Model to predict the, 'classe' value
 ```{r training, eval=FALSE}
-internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.6, list = FALSE)
+internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.75, list = FALSE)
 internaltrainingdata <- newTraining[partition, ]
 internaltestdata <- newTraining[-partition, ]
 
 model <- train(classe ~ ., data = internaltrainingpart, method = "glm")
+```
+
+*Predicting:*
+In sample:
+```{r predicting, eval=FALSE}
+predicitions <- predict(model, internaltrainingdata)
+confusionMatrix(predictions, internaltrainingdata$classe)
+```
+
+Out of sample:
+```{r predicting3, eval=FALSE}
+predicitions2 <- predict(model, internaltestdata)
+confusionMatrix(predictions2, internaltestdata$classe)
+```
+
+Validation:
+```{r predicting4, eval=FALSE}
+#note: answers (validation) not included in this file
+predicitions3 <- predict(model, validation)
+confusionMatrix(predictions3, validation$classe)
 ```

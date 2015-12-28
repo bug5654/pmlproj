@@ -79,12 +79,22 @@ testing &lt;-read.csv(&quot;pml-testing.csv&quot;,na.strings=c(&quot;NA&quot;,&q
 newTraining &lt;- training[,!(uselesscol &gt; 100)]   
 uselessrow &lt;- rowSums(is.na(training))
 newTraining &lt;- training[!(uselessrow &gt; 0)]   #strict</code></pre>
-<p><em>Training:</em></p>
-<pre class="r"><code>internaltrainingpart &lt;- createDataPartition(y = newTraining$classe, p = 0.6, list = FALSE)
+<p><em>Training:</em> We use a General Linear Model to predict the, ‘classe’ value</p>
+<pre class="r"><code>internaltrainingpart &lt;- createDataPartition(y = newTraining$classe, p = 0.75, list = FALSE)
 internaltrainingdata &lt;- newTraining[partition, ]
 internaltestdata &lt;- newTraining[-partition, ]
 
 model &lt;- train(classe ~ ., data = internaltrainingpart, method = &quot;glm&quot;)</code></pre>
+<p><em>Predicting:</em> In sample:</p>
+<pre class="r"><code>predicitions &lt;- predict(model, internaltrainingdata)
+confusionMatrix(predictions, internaltrainingdata$classe)</code></pre>
+<p>Out of sample:</p>
+<pre class="r"><code>predicitions2 &lt;- predict(model, internaltestdata)
+confusionMatrix(predictions2, internaltestdata$classe)</code></pre>
+<p>Validation:</p>
+<pre class="r"><code>#note: answers (validation) not included in this file
+predicitions3 &lt;- predict(model, validation)
+confusionMatrix(predictions3, validation$classe)</code></pre>
 
 
 </div>
