@@ -15,7 +15,7 @@ training <- read.csv("pml-training.csv",na.strings=c("NA",""))
 testing <-read.csv("pml-testing.csv",na.strings=c("NA",""))
 ```
 
-*Imputing:*
+*Imputing (or lack thereof):*
 With the proponderance of NA values in the dataset, a good number of the columns were outright ignored as not useful for prediction.  The raw timestamp (both halves) was used instead of the human readable version.
 
 Thus we use 
@@ -24,4 +24,11 @@ uselesscol <- colSums(is.na(training))
 newTraining <- training[,!(uselesscol > 100)]   
 uselessrow <- rowSums(is.na(training))
 newTraining <- training[!(uselessrow > 0)]   #strict
+```
+
+*Training:*
+```{r training, eval=FALSE}
+internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.6, list = FALSE)
+internaltrainingdata <- newTraining[partition, ]
+internaltestdata <- newTraining[-partition, ]
 ```
