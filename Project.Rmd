@@ -33,7 +33,7 @@ internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.75, li
 internaltrainingdata <- newTraining[internaltrainingpart, ]
 internaltestdata <- newTraining[-internaltrainingpart, ]
 
-model <- train(classe ~ ., data = internaltrainingpart, method = "glm")
+model <- train(classe ~ ., data = internaltraindata, method = "glm")
 ```
 
 *Predicting:*

@@ -84,7 +84,7 @@ newTraining &lt;- training[!(uselessrow &gt; 100),]   #strict</code></pre>
 internaltrainingdata &lt;- newTraining[internaltrainingpart, ]
 internaltestdata &lt;- newTraining[-internaltrainingpart, ]
 
-model &lt;- train(classe ~ ., data = internaltrainingpart, method = &quot;glm&quot;)</code></pre>
+model &lt;- train(classe ~ ., data = internaltraindata, method = &quot;glm&quot;)</code></pre>
 <p><em>Predicting:</em> In sample:</p>
 <pre class="r"><code>predicitions &lt;- predict(model, internaltrainingdata) #unlimited use training
 confusionMatrix(predictions, internaltrainingdata$classe)</code></pre>
