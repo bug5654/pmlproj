@@ -5,4 +5,23 @@ date: "December 27, 2015"
 output: html_document
 ---
 
-Before the file could hit R, I went in with a text editor and manually removed all the doublequotes from the file as the file was not going through read.table properly.  Find-replace'd all \"s with nothing (not even a space) given that there were over 300,000 double quotes, I suppose it isn't all that unlikely for a data entry error to crop up.
+*Preprocessing:*
+Before the file could hit R, I went in with a text editor and manually removed all the doublequotes from the file as the file was not going through read.table properly.  Find-replace'd all \"s with nothing (not even a space) given that there were over 300,000 double quotes, I suppose it isn't all that unlikely for a data entry error to crop up.'
+
+*Import:*
+```{r init, eval=FALSE}
+library(caret)
+training <- read.csv("pml-training.csv",na.strings=c("NA",""))
+testing <-read.csv("pml-testing.csv",na.strings=c("NA",""))
+```
+
+*Imputing:*
+With the proponderance of NA values in the dataset, a good number of the columns were outright ignored as not useful for prediction.  The raw timestamp (both halves) was used instead of the human readable version.
+
+Thus we use 
+```{r nanana, eval=FALSE}
+uselesscol <- colSums(is.na(training))
+newTraining <- training[,!(uselesscol > 100)]   
+uselessrow <- rowSums(is.na(training))
+newTraining <- training[!(uselessrow > 0)]   #strict
+```
