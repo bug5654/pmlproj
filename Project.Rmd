@@ -21,17 +21,17 @@ With the proponderance of NA values in the dataset, a good number of the columns
 Thus we use 
 ```{r nanana, eval=FALSE}
 uselesscol <- colSums(is.na(training))
-newTraining <- training[,!(uselesscol > 100)]   
+newTraining <- training[,!(uselesscol > 1000)]   
 uselessrow <- rowSums(is.na(training))
-newTraining <- training[!(uselessrow > 0),]   #strict
+newTraining <- training[!(uselessrow > 100),]   #strict
 ```
 
 *Training:*
 We use a General Linear Model to predict the, 'classe' value
 ```{r training, eval=FALSE}
 internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.75, list = FALSE)
-internaltrainingdata <- newTraining[partition, ]
-internaltestdata <- newTraining[-partition, ]
+internaltrainingdata <- newTraining[internaltrainingpart, ]
+internaltestdata <- newTraining[-internaltrainingpart, ]
 
 model <- train(classe ~ ., data = internaltrainingpart, method = "glm")
 ```

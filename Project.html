@@ -76,13 +76,13 @@ testing &lt;-read.csv(&quot;pml-testing.csv&quot;,na.strings=c(&quot;NA&quot;,&q
 <p><em>Imputing (or lack thereof):</em> With the proponderance of NA values in the dataset, a good number of the columns were outright ignored as not useful for prediction. The raw timestamp (both halves) was used instead of the human readable version.</p>
 <p>Thus we use</p>
 <pre class="r"><code>uselesscol &lt;- colSums(is.na(training))
-newTraining &lt;- training[,!(uselesscol &gt; 100)]   
+newTraining &lt;- training[,!(uselesscol &gt; 1000)]   
 uselessrow &lt;- rowSums(is.na(training))
-newTraining &lt;- training[!(uselessrow &gt; 0),]   #strict</code></pre>
+newTraining &lt;- training[!(uselessrow &gt; 100),]   #strict</code></pre>
 <p><em>Training:</em> We use a General Linear Model to predict the, ‘classe’ value</p>
 <pre class="r"><code>internaltrainingpart &lt;- createDataPartition(y = newTraining$classe, p = 0.75, list = FALSE)
-internaltrainingdata &lt;- newTraining[partition, ]
-internaltestdata &lt;- newTraining[-partition, ]
+internaltrainingdata &lt;- newTraining[internaltrainingpart, ]
+internaltestdata &lt;- newTraining[-internaltrainingpart, ]
 
 model &lt;- train(classe ~ ., data = internaltrainingpart, method = &quot;glm&quot;)</code></pre>
 <p><em>Predicting:</em> In sample:</p>
