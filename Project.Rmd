@@ -33,20 +33,20 @@ internaltrainingpart <- createDataPartition(y = newTraining$classe, p = 0.75, li
 internaltrainingdata <- newTraining[internaltrainingpart, ]
 internaltestdata <- newTraining[-internaltrainingpart, ]
 
-model <- train(classe ~ ., data = internaltraindata, method = "glm")
+model <- train(classe ~ ., data = na.omit(internaltrainingdata), method = "glm")
 ```
 
 *Predicting:*
 In sample:
 ```{r predicting, eval=FALSE}
-predicitions <- predict(model, internaltrainingdata) #unlimited use training
-confusionMatrix(predictions, internaltrainingdata$classe)
+predicitions <- predict(model, na.omit(internaltrainingdata)) #unlimited use training
+confusionMatrix(predictions, na.omit(internaltrainingdata)$classe)
 ```
 
 Out of sample:
 ```{r predicting3, eval=FALSE}
 predicitions2 <- predict(model, internaltestdata)   #do not overuse training
-confusionMatrix(predictions2, internaltestdata$classe)
+confusionMatrix(predictions2, na.omit(internaltestdata)$classe)
 ```
 
 Validation:

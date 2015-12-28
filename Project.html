@@ -84,13 +84,13 @@ newTraining &lt;- training[!(uselessrow &gt; 100),]   #strict</code></pre>
 internaltrainingdata &lt;- newTraining[internaltrainingpart, ]
 internaltestdata &lt;- newTraining[-internaltrainingpart, ]
 
-model &lt;- train(classe ~ ., data = internaltraindata, method = &quot;glm&quot;)</code></pre>
+model &lt;- train(classe ~ ., data = na.omit(internaltrainingdata), method = &quot;glm&quot;)</code></pre>
 <p><em>Predicting:</em> In sample:</p>
-<pre class="r"><code>predicitions &lt;- predict(model, internaltrainingdata) #unlimited use training
-confusionMatrix(predictions, internaltrainingdata$classe)</code></pre>
+<pre class="r"><code>predicitions &lt;- predict(model, na.omit(internaltrainingdata)) #unlimited use training
+confusionMatrix(predictions, na.omit(internaltrainingdata)$classe)</code></pre>
 <p>Out of sample:</p>
 <pre class="r"><code>predicitions2 &lt;- predict(model, internaltestdata)   #do not overuse training
-confusionMatrix(predictions2, internaltestdata$classe)</code></pre>
+confusionMatrix(predictions2, na.omit(internaltestdata)$classe)</code></pre>
 <p>Validation:</p>
 <pre class="r"><code>#note: validation data is not included in this file
 predicitions3 &lt;- predict(model, validation)        #2 chances
